@@ -42,7 +42,7 @@ app.use(
 const client = new MongoClient(
   process.env.MONGODB_URI
 );
-// const
+
 const verifyToken = (
   req,
   res,
@@ -242,7 +242,7 @@ app.get("/", (req, res) => {
             }
           );
 
-          rres.cookie("token", token, {
+          res.cookie("token", token, {
   httpOnly: true,
 
   secure: true,
