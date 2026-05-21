@@ -22,7 +22,7 @@ app.set("trust proxy", 1);
 app.use(
   cors({
     origin: [
-      "https://doc-appoint-server-seven.vercel.app/",
+      "http://localhost:3000",
       process.env.CLIENT_URL,
     ],
 
@@ -108,12 +108,14 @@ async function run() {
         "users"
       );
 
-    app.get("/", (req, res) => {
-      res.send(
+    // app.get("/", (req, res) => {
+    //   res.send(
         
-      );
-    });
-
+    //   );
+    // });
+app.get("/", (req, res) => {
+  res.send("Backend Running");
+});
     app.post(
       "/register",
       async (req, res) => {
@@ -241,15 +243,21 @@ async function run() {
           );
 
           res.cookie(
-            "token",
-            token,
-            {
-              httpOnly: true,
-            secure: false,
-sameSite: "lax",
-            }
-          );
+  "token",
+  token,
+  {
+    httpOnly: true,
+    secure:
+      process.env.NODE_ENV ===
+      "production",
 
+    sameSite:
+      process.env.NODE_ENV ===
+      "production"
+        ? "none"
+        : "lax",
+  }
+);
           res.send({
             success: true,
             token,
@@ -283,8 +291,8 @@ sameSite: "lax",
           "token",
           {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+          secure: true,
+sameSite: "none",
           }
         );
 
@@ -540,10 +548,10 @@ sameSite: "lax",
 }
 
 run();
-app.listen(port, () => {
-  console.log(
-    `Server running on port ${port}`
-  );
-});
+// app.listen(port, () => {
+//   console.log(
+//     `Server running on port ${port}`
+//   );
+// });
 
 export default app;
