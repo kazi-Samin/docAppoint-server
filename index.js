@@ -34,10 +34,10 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(
-  "/api/auth",
-  toNodeHandler(auth)
-);
+// app.use(
+//   "/api/auth",
+//   toNodeHandler(auth)
+// );
 
 const client = new MongoClient(
   process.env.MONGODB_URI
