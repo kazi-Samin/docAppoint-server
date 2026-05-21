@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
-import { toNodeHandler } from "better-auth/node";
-import { auth } from "./lib/auth.js";
+// import { toNodeHandler } from "better-auth/node";
+// import { auth } from "./lib/auth.js";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -34,10 +34,10 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(
-  "/api/auth",
-  toNodeHandler(auth)
-);
+// app.use(
+//   "/api/auth",
+//   toNodeHandler(auth)
+// );
 
 const client = new MongoClient(
   process.env.MONGODB_URI
@@ -287,14 +287,18 @@ app.get("/", (req, res) => {
       "/logout",
       (req, res) => {
 
-        res.clearCookie(
-          "token",
-          {
-            httpOnly: true,
-          secure: true,
-sameSite: "none",
-          }
-        );
+        res.clearCookie("token", {
+  httpOnly: true,
+  secure:
+    process.env.NODE_ENV ===
+    "production",
+
+  sameSite:
+    process.env.NODE_ENV ===
+    "production"
+      ? "none"
+      : "lax",
+});
 
         res.send({
           success: true,
