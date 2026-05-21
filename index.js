@@ -22,7 +22,7 @@ app.set("trust proxy", 1);
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
+      "https://doc-appoint-server-seven.vercel.app/",
       process.env.CLIENT_URL,
     ],
 
