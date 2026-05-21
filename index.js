@@ -46,7 +46,7 @@ app.use(
 const client = new MongoClient(
   process.env.MONGODB_URI
 );
-
+// const
 const verifyToken = (
   req,
   res,
