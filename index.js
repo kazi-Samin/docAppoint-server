@@ -108,14 +108,14 @@ async function run() {
         "users"
       );
 
-    // app.get("/", (req, res) => {
-    //   res.send(
+    app.get("/", (req, res) => {
+      res.send(
         
-    //   );
-    // });
-app.get("/", (req, res) => {
-  res.send("Backend Running");
-});
+      );
+    });
+// app.get("/", (req, res) => {
+//   res.send("Backend Running");
+// });
     app.post(
       "/register",
       async (req, res) => {
