@@ -17,20 +17,16 @@ const port =
 
 app.set("trust proxy", 1);
 
+// 
+
 app.use(
   cors({
-    origin:
+    origin: [
+      "http://localhost:3000",
       process.env.CLIENT_URL,
+    ],
 
     credentials: true,
-
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "PATCH",
-      "DELETE",
-    ],
   })
 );
 
@@ -92,9 +88,7 @@ async function run() {
 
     await client.connect();
 
-    console.log(
-      "MongoDB Connected Successfully 🚀"
-    );
+  
 
     const database =
       client.db("docappoint");
@@ -116,7 +110,7 @@ async function run() {
 
     app.get("/", (req, res) => {
       res.send(
-        "DocAppoint Backend Server Running 🚀"
+        
       );
     });
 
@@ -251,8 +245,8 @@ async function run() {
             token,
             {
               httpOnly: true,
-              secure: true,
-              sameSite: "none",
+            secure: false,
+sameSite: "lax",
             }
           );
 
@@ -546,6 +540,10 @@ async function run() {
 }
 
 run();
-
+app.listen(port, () => {
+  console.log(
+    `Server running on port ${port}`
+  );
+});
 
 export default app;
