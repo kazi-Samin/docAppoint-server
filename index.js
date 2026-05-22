@@ -833,7 +833,7 @@ async function run() {
   }
 }
 
-run();
+await run();
 
 // app.listen(port, () => {
 //   console.log(
