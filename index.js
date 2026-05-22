@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { MongoClient, ObjectId } from "mongodb";
-import { toNodeHandler } from "better-auth/node";
-import { auth } from "./lib/auth.js";
+// import { toNodeHandler } from "better-auth/node";
+// import { auth } from "./lib/auth.js";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -241,13 +241,18 @@ app.get("/", (req, res) => {
                 "7d",
             }
           );
-
-          res.cookie("token", token, {
+res.cookie("token", token, {
   httpOnly: true,
 
-  secure: true,
+  secure:
+    process.env.NODE_ENV ===
+    "production",
 
-  sameSite: "none",
+  sameSite:
+    process.env.NODE_ENV ===
+    "production"
+      ? "none"
+      : "lax",
 
   maxAge:
     7 * 24 * 60 * 60 * 1000,
