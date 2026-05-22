@@ -590,8 +590,12 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(
-  "/api/auth",
+// app.use(
+//   "/api/auth",
+//   toNodeHandler(auth)
+// );
+app.all(
+  "/api/auth/*splat",
   toNodeHandler(auth)
 );
 
